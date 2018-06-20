@@ -14,9 +14,8 @@ targetCompatibility = 8
 
 dependencies {
 
-  implementation 'io.netty:netty-resolver-dns:4.1.25.Final'
-  implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
-
+  api 'io.netty:netty-resolver-dns:4.1.25.Final'
+  api 'io.reactivex.rxjava2:rxjava:2.1.14'
   api 'org.slf4j:slf4j-api:1.7.25'
 
   testImplementation 'junit:junit:4.12'

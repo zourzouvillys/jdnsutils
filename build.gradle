@@ -1,0 +1,80 @@
+apply plugin: 'java-library'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+
+
+repositories {
+  jcenter()
+  maven { url 'https://jitpack.io' }
+}
+
+
+sourceCompatibility = 8
+targetCompatibility = 8
+
+dependencies {
+
+  implementation 'io.netty:netty-resolver-dns:4.1.25.Final'
+  implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+
+  api 'org.slf4j:slf4j-api:1.7.25'
+
+  testImplementation 'junit:junit:4.12'
+  
+}
+
+
+
+
+  // --------------------------------------------------
+  // install
+  // --------------------------------------------------
+
+
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+  }
+
+  tasks.withType(Javadoc) {
+      options.addStringOption('Xdoclint:none', '-quiet')
+  }
+    
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
+  artifacts {
+    archives sourcesJar
+    archives javadocJar
+  }
+
+  javadoc {
+    title = "jdnstuils"
+    failOnError = false
+    exclude "**/impl/**";
+  }
+
+  // To specify a license in the pom:
+  install {
+    repositories.mavenInstaller {
+      pom.project {
+        licenses {
+          license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+          }
+        }
+      }
+    }
+  }
+
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.8'
+}
+  
+  
